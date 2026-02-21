@@ -23,12 +23,40 @@ This app uses Reddit's public JSON feed endpoint per subreddit:
 
 So you can run this MVP without setting up a Reddit API app.
 
-## Run locally
+## Preview locally
 
-Because this is a static MVP, you can run it with any local server.
+### Option A (recommended)
 
 ```bash
-python3 -m http.server 4173
+./preview.sh
 ```
 
-Then open `http://localhost:4173`.
+Then open `http://127.0.0.1:4173`.
+
+### Option B (manual)
+
+```bash
+python3 -m http.server 4173 --bind 127.0.0.1
+```
+
+Then open `http://127.0.0.1:4173`.
+
+## If you see `ERR_CONNECTION_REFUSED`
+
+That error means there is no local web server currently running on that port.
+
+Try this checklist:
+
+1. Start the server in this project directory:
+   ```bash
+   cd /workspace/StorySub
+   ./preview.sh
+   ```
+2. Keep that terminal window open while previewing.
+3. Open the exact URL shown by the script (default `http://127.0.0.1:4173`).
+4. If port `4173` is taken, run a different port:
+   ```bash
+   ./preview.sh 8080
+   ```
+   and open `http://127.0.0.1:8080`.
+5. If you are in a remote/container environment, use the environment's forwarded URL for the same port.
