@@ -208,15 +208,35 @@ async function loadStories() {
   storyList.innerHTML = '';
 
   try {
-    const response = await fetch(
-      `https://www.reddit.com/r/${activeCategory}/top.json?limit=25&t=month&raw_json=1`
-    );
+    const baseUrl = `https://www.reddit.com/r/${activeCategory}/top.json?limit=25&t=month&raw_json=1`;
+    const endpoints = [
+      baseUrl,
+      `https://old.reddit.com/r/${activeCategory}/top.json?limit=25&t=month&raw_json=1`,
+      `https://api.allorigins.win/raw?url=${encodeURIComponent(baseUrl)}`
+    ];
 
-    if (!response.ok) {
-      throw new Error(`Request failed: ${response.status}`);
+    let data;
+    let lastError;
+
+    for (const endpoint of endpoints) {
+      try {
+        const response = await fetch(endpoint);
+        if (!response.ok) {
+          throw new Error(`Request failed: ${response.status}`);
+        }
+
+        const text = await response.text();
+        data = JSON.parse(text);
+        break;
+      } catch (error) {
+        lastError = error;
+      }
     }
 
-    const data = await response.json();
+    if (!data?.data?.children) {
+      throw lastError || new Error('No usable data returned from story sources.');
+    }
+
     stories = data.data.children
       .map((child) => child.data)
       .filter((post) => post.selftext && post.selftext.length > 120);
