@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ReadIt - Reddit Story Player</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-icon">📖</div>
+          <span>ReadIt</span>
+        </div>
+
+        <nav>
+          <button class="nav-item active" type="button">Discover</button>
+          <button class="nav-item" type="button" disabled>Library</button>
+        </nav>
+
+        <div class="premium-card">
+          <h3>Premium Features</h3>
+          <p>Save unlimited stories and listen offline.</p>
+          <button type="button" disabled>Coming Soon</button>
+        </div>
+      </aside>
+
+      <main class="content">
+        <header class="top-bar">
+          <div>
+            <h1>Discover 🔥</h1>
+            <p>Curated stories from Reddit writing communities</p>
+          </div>
+          <label class="search-wrap">
+            <span>🔎</span>
+            <input id="search" type="text" placeholder="Search stories..." />
+          </label>
+        </header>
+
+        <section class="category-row" id="categoryRow"></section>
+
+        <section class="player" id="player">
+          <div class="player-story">
+            <p class="player-kicker">Story Reader</p>
+            <h2 id="nowPlayingTitle">Choose a story to start listening</h2>
+            <p id="nowPlayingMeta">Select a post from below and hit play.</p>
+          </div>
+          <div class="player-controls">
+            <button id="prevButton" type="button">◀</button>
+            <button id="playPauseButton" type="button" class="play">Play</button>
+            <button id="nextButton" type="button">▶</button>
+          </div>
+        </section>
+
+        <section id="status" class="status">Loading stories…</section>
+        <section id="storyList" class="story-list"></section>
+      </main>
+    </div>
+
+    <script src="app.js" type="module"></script>
+  </body>
+</html>
